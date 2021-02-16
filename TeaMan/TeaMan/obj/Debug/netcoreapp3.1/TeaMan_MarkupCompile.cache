@@ -1,5 +1,5 @@
 ﻿TeaMan
-1.0.0.0
+
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 D:\Moje aplikacje\TeaMan\TeaMan\TeaMan\App.xaml
 1-809265419
 
-6-734733827
+4876490280
 205-1745437555
 Views\MainWindowView.xaml;
 
-True
+False
 

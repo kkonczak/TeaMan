@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:TeaMan"
              StartupUri="Views/MainWindowView.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Themes/DefaultTheme.xaml" />
+
     </Application.Resources>
 </Application>

@@ -8,11 +8,27 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBox Text="{Binding Pole1, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30" />
-            <TextBox Text="{Binding Pole1}" Width="100" Height="30" />
+            <Label Content="{Binding Pole1}" Margin="5"/>
+            <Label Margin="5">Label test</Label>
+            <Button Content="kliknij mnie" Command="{Binding Command1}" Width="88"  Margin="5"/>
+            <ComboBox Width="584" Margin="5">
+                <ComboBox.Items>
+                    <ComboBoxItem>Test1</ComboBoxItem>
+                    <ComboBoxItem>Test2</ComboBoxItem>
+                    <ComboBoxItem>Test3</ComboBoxItem>
+                </ComboBox.Items>
+            </ComboBox>
 
-            <Label Content="{Binding Pole1}" />
-            <Button Content="kliknij mnie" Command="{Binding Command1}" />
+            <TextBox Text="{Binding Pole1, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30"  Margin="5" />
+            <TextBox Text="{Binding Pole1}" Width="100" Height="30"  Margin="5"/>
+
+            <ListBox Width="581" Margin="5">
+                <ListBox.Items>
+                    <ListBoxItem>Test1</ListBoxItem>
+                    <ListBoxItem>Test2</ListBoxItem>
+                    <ListBoxItem>Test3</ListBoxItem>
+                </ListBox.Items>
+            </ListBox>
         </StackPanel>
     </Grid>
 </Window>

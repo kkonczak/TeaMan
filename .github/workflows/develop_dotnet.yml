@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop/TeaMan ]
   pull_request:
     branches: [ develop ]
 

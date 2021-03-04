@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ develop/TeaMan ]
+    branches: [ develop ]
   pull_request:
     branches: [ develop ]
 
@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    - name: Change directory
+      run: cd ./TeaMan
     - name: Restore dependencies
       run: dotnet restore
     - name: Build

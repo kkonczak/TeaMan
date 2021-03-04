@@ -6,4 +6,5 @@
 /TeaMan/.vs
 /TeaMan/TeaMan/bin/
 /TeaMan/TeaMan/obj/
-/TeaMan/TeaMan/TeaMan.csproj.user
+/TeaMan/TeaMan.Tests/obj
+/TeaMan/TeaMan.Tests/bin/Debug/netcoreapp3.1

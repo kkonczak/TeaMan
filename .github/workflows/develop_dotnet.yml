@@ -21,8 +21,11 @@ jobs:
     - name: Change directory
       run: cd ./TeaMan/TeaMan
     - name: Restore dependencies
-      run: dotnet restore ./TeaMan.csproj
+      working-directory: ./TeaMan
+      run: dotnet restore
     - name: Build
+      working-directory: ./TeaMan
       run: dotnet build --no-restore
     - name: Test
+      working-directory: ./TeaMan
       run: dotnet test --no-build --verbosity normal

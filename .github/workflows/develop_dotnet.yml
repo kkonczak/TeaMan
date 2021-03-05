@@ -19,9 +19,9 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Change directory
-      run: cd ./TeaMan
+      run: cd ./TeaMan/TeaMan
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./TeaMan.csproj
     - name: Build
       run: dotnet build --no-restore
     - name: Test

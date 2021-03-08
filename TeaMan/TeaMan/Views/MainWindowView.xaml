@@ -4,31 +4,84 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TeaMan"
+        xmlns:icons="clr-namespace:TeaMan.Icons"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <Label Content="{Binding Pole1}" Margin="5"/>
-            <Label Margin="5">Label test</Label>
-            <Button Content="kliknij mnie" Command="{Binding Command1}" Width="88"  Margin="5"/>
-            <ComboBox Width="584" Margin="5">
-                <ComboBox.Items>
-                    <ComboBoxItem>Test1</ComboBoxItem>
-                    <ComboBoxItem>Test2</ComboBoxItem>
-                    <ComboBoxItem>Test3</ComboBoxItem>
-                </ComboBox.Items>
-            </ComboBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+            <ColumnDefinition  Width="40"/>
+        </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Pole1, UpdateSourceTrigger=PropertyChanged}" Width="100" Height="30"  Margin="5" />
-            <TextBox Text="{Binding Pole1}" Width="100" Height="30"  Margin="5"/>
+        <!-- Left panel -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
 
-            <ListBox Width="581" Margin="5">
-                <ListBox.Items>
-                    <ListBoxItem>Test1</ListBoxItem>
-                    <ListBoxItem>Test2</ListBoxItem>
-                    <ListBoxItem>Test3</ListBoxItem>
-                </ListBox.Items>
+            <Button HorizontalContentAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <icons:IconAdd />
+                    <TextBlock VerticalAlignment="Center"
+                        Foreground="White">
+                        Add Calendar
+                        </TextBlock>
+                </StackPanel>
+            </Button>
+
+            <ListBox Grid.Row="1" ItemsSource="{Binding Calendars}"
+                ItemTemplate="{StaticResource calendarListItem}"
+                SelectedItem="{Binding SelectedCalendar}">
             </ListBox>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button Width="40" Height="40">
+                    <icons:IconSettings />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Center panel -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Height="40" Width="120">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <icons:IconAdd />
+                        <TextBlock VerticalAlignment="Center" Foreground="White">Add Task</TextBlock>
+                    </StackPanel>
+                </Button>
+                <ComboBox Margin="2"
+                    ItemsSource="{Binding SelectedCalendar.TaskTypes}"
+                    ItemTemplate="{StaticResource taskTypesListItem}" />
+                <ComboBox Margin="2"
+                    ItemsSource="{Binding SelectedCalendar.TaskStatuses}"
+                    ItemTemplate="{StaticResource taskStatusesListItem}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Right panel -->
+        <StackPanel Orientation="Vertical" Grid.Column="2">
+            <Button Width="40" Height="40">
+                <icons:IconTaskView />
+            </Button>
+            <Button Width="40" Height="40">
+                <icons:IconsCalendarView />
+            </Button>
+            <Button Width="40" Height="40">
+                <icons:IconKanbanView />
+            </Button>
+            <Button Width="40" Height="40">
+                <icons:IconGanttView />
+            </Button>
         </StackPanel>
+
     </Grid>
 </Window>

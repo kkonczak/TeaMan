@@ -13,22 +13,18 @@ jobs:
     runs-on: windows-latest
 
     steps: 
-    - name: Prep
-      run: |
-          echo "::set-env name=BUILD_VER::2.3.$GITHUB_RUN_NUMBER"
-          echo "::set-env name=CONFIG::Release"
-          echo "::set-env name=NUGET_URL::https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-        source-url: ${{ env.NUGET_URL }}
-      env:
-        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Restore dependencies
       working-directory: ./TeaMan
-      run: dotnet restore
+      run: |
+        nuget sources add -name "private-packages" -Source https://nuget.pkg.github.com/yanjingzhu/index.json -StorePasswordInClearText -Username yanjingzhu -Password ${env:Password}
+        dotnet restore
+      env:
+        Password: ${{ secrets.PackagePAT }}
     - name: Build
       working-directory: ./TeaMan
       run: dotnet build --no-restore

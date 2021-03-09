@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TeaMan">
+    <DataTemplate x:Key="calendarListItem">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="taskTypesListItem">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="taskStatusesListItem">
+        <TextBlock Text="{Binding Name}" />
+    </DataTemplate>
+</ResourceDictionary>

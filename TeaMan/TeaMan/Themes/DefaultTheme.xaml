@@ -3,6 +3,8 @@
                     xmlns:local="clr-namespace:TeaMan.Themes"
                     xmlns:views="clr-namespace:TeaMan.Views">
 
+    <SolidColorBrush x:Key="AccentColor" Color="#FF7700" />
+
     <Style TargetType="Window">
         <Setter Property="Background" Value="#181818" />
     </Style>
@@ -14,8 +16,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="Border" Padding="10,5,10,5" BorderThickness="1" CornerRadius="5" Background="Transparent">
-                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" TextBlock.Foreground="White"
+                    <Border x:Name="Border" Padding="10,5,10,5" BorderThickness="1" CornerRadius="5" Background="Transparent" TextBlock.Foreground="White">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Stretch" TextBlock.TextAlignment="Center"
                             VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -45,13 +47,13 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
                                 <Border BorderThickness="1" Padding="4" CornerRadius="4">
-                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                    <ContentPresenter />
 
                                     <Border.Style>
                                         <Style TargetType="{x:Type Border}">
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="#FF7700" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource AccentColor}" />
                                                 </Trigger>
 
                                                 <DataTrigger Binding="{Binding Path=IsSelected, RelativeSource={RelativeSource TemplatedParent}}" Value="True">
@@ -100,14 +102,14 @@
 
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="True">
-                <Setter TargetName="Border" Property="BorderBrush" Value="#FF7700" />
-                <Setter TargetName="BorderAllInput" Property="BorderBrush" Value="#FF7700" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentColor}" />
+                <Setter TargetName="BorderAllInput" Property="BorderBrush" Value="{StaticResource AccentColor}" />
             </Trigger>
 
             <Trigger Property="ToggleButton.IsChecked" Value="True">
-                <Setter TargetName="Border" Property="Background" Value="#FF7700" />
-                <Setter TargetName="Border" Property="BorderBrush" Value="#FF7700" />
-                <Setter TargetName="BorderAllInput" Property="BorderBrush" Value="#FF7700" />
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource AccentColor}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentColor}" />
+                <Setter TargetName="BorderAllInput" Property="BorderBrush" Value="{StaticResource AccentColor}" />
             </Trigger>
         </ControlTemplate.Triggers>
 
@@ -146,7 +148,7 @@
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                             Margin="3,3,23,3"
-                            VerticalAlignment="Stretch"
+                            VerticalAlignment="center"
                             HorizontalAlignment="Left" TextBlock.Foreground="White">
                         </ContentPresenter>
                         <TextBox x:Name="PART_EditableTextBox"
@@ -171,7 +173,7 @@
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                                    BorderThickness="1" BorderBrush="#FF7700" Background="#222222" CornerRadius="2"/>
+                                    BorderThickness="1" BorderBrush="{StaticResource AccentColor}" Background="#222222" CornerRadius="2"/>
                                 <ScrollViewer Margin="4,6,4,6"
                                     SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True"
@@ -202,7 +204,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Border.IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="BorderBrush" Value="#FF7700" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -212,7 +214,7 @@
 
     <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
         <Setter Property="Foreground" Value="white" />
-        <Setter Property="CaretBrush" Value="#FF7700" />
+        <Setter Property="CaretBrush" Value="{StaticResource AccentColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -228,10 +230,10 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="Border.IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="BorderBrush" Value="#FF7700" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentColor}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="Border" Property="BorderBrush" Value="#FF7700" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentColor}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

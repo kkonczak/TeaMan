@@ -1,8 +1,8 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Reactive.Linq;
+using TeaMan.Models;
 
 namespace TeaMan.ViewModels
 {
@@ -10,22 +10,45 @@ namespace TeaMan.ViewModels
     {
         public MainWindowViewModel()
         {
-            Command1 = ReactiveCommand.Create(Command1Impl);
+            Load = ReactiveCommand.CreateFromTask(LoadImpl);
 
-            this.WhenAnyValue(e => e.Pole1)
-                .Where(e => !string.IsNullOrEmpty(e) && e.Length % 2 == 0)
-                .Select(e => Unit.Default)
-                .InvokeCommand(Command1);
+            // Test load
+            Load.Execute();
         }
 
+        public ReactiveCommand<Unit, Unit> Load { get; }
+
+        #region Model
+
+        public ObservableCollection<Calendar> Calendars { get; set; } = new ObservableCollection<Calendar>();
+
         [Reactive]
-        public string Pole1 { get; set; }
+        public Calendar SelectedCalendar { get; set; }
 
-        public ReactiveCommand<Unit, Unit> Command1 { get; }
+        #endregion
 
-        private void Command1Impl()
+        private async System.Threading.Tasks.Task LoadImpl()
         {
-            Debug.WriteLine("test");
+            var calendar = new Calendar()
+            {
+                Name = "Calendar 1",
+                Order = 1,
+                TaskStatuses = new ObservableCollection<TaskStatus>(
+                    new TaskStatus[] {
+                        new TaskStatus() {Name = "In Progress", Order = 2},
+                        new TaskStatus() {Name = "To Do", Order = 1},
+                        new TaskStatus() {Name = "Done", Order = 3}
+                    }),
+                TaskTypes = new ObservableCollection<TaskType>(
+                    new TaskType[] {
+                        new TaskType() {Name = "Bug", Order = 3},
+                        new TaskType() {Name = "Backlog", Order = 1},
+                        new TaskType() {Name = "Feature", Order = 2},
+                    })
+            };
+
+            Calendars.Add(calendar);
+            SelectedCalendar = Calendars[0];
         }
     }
 }

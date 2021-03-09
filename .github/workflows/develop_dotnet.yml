@@ -12,12 +12,20 @@ jobs:
 
     runs-on: windows-latest
 
-    steps:
+    steps: 
+    - name: Prep
+      run: |
+          echo "::set-env name=BUILD_VER::2.3.$GITHUB_RUN_NUMBER"
+          echo "::set-env name=CONFIG::Release"
+          echo "::set-env name=NUGET_URL::https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+        source-url: ${{ env.NUGET_URL }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }
     - name: Restore dependencies
       working-directory: ./TeaMan
       run: dotnet restore

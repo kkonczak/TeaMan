@@ -5,12 +5,18 @@
 
     <SolidColorBrush x:Key="AccentColor" Color="#FF7700" />
 
-    <Style TargetType="Window">
+    <Style x:Key="{x:Type Window}" TargetType="Window">
         <Setter Property="Background" Value="#181818" />
     </Style>
 
     <Style TargetType="{x:Type views:MainWindowView}"
         BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type views:AddTaskView}"
+        BasedOn="{StaticResource {x:Type Window}}"/>
+
+    <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White" />
+    </Style>
 
     <Style x:Key="{x:Type Button}" TargetType="Button">
         <Setter Property="Template">

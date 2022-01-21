@@ -126,5 +126,16 @@ namespace TeaMan
                 return dbContext.SaveChangesAsync();
             }
         }
+
+        public static async Task AddCalendar(Models.Calendar calendar)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var orderOfLastCalendar = await dbContext.Calendars.Select(e => e.Order).MaxAsync();
+                calendar.Order = orderOfLastCalendar + 1;
+                dbContext.Calendars.Add(calendar);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

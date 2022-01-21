@@ -10,7 +10,8 @@ namespace TeaMan.Helpers
     {
         private static Dictionary<Type, Type> mapping = new Dictionary<Type, Type>()
         {
-            [typeof(AddTaskViewModel)] = typeof(AddTaskView)
+            [typeof(AddTaskViewModel)] = typeof(AddTaskView),
+            [typeof(AddCalendarViewModel)] = typeof(AddCalendarView)
         };
 
         public static bool? ShowDialog<T>(T viewModel)

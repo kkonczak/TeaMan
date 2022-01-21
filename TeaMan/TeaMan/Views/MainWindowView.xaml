@@ -6,6 +6,7 @@
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:TeaMan"
         xmlns:icons="clr-namespace:TeaMan.Icons"
+        xmlns:controls="clr-namespace:TeaMan.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -20,6 +21,8 @@
                 <scm:SortDescription PropertyName="Order"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -65,6 +68,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!-- Top bar -->
             <StackPanel Orientation="Horizontal">
                 <Button Height="40" Width="120" Command="{Binding AddTask}">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
@@ -72,13 +76,24 @@
                         <TextBlock VerticalAlignment="Center" Foreground="White">Add Task</TextBlock>
                     </StackPanel>
                 </Button>
+
                 <ComboBox Margin="2"
                     ItemsSource="{Binding Source={StaticResource taskTypesSource}}"
-                    ItemTemplate="{StaticResource taskTypesListItem}" />
+                    ItemTemplate="{StaticResource taskTypesListItem}" 
+                    SelectedItem="{Binding SelectedTaskType}" />
                 <ComboBox Margin="2"
                     ItemsSource="{Binding Source={StaticResource taskStatusesSource}}"
-                    ItemTemplate="{StaticResource taskStatusesListItem}" />
+                    ItemTemplate="{StaticResource taskStatusesListItem}"
+                    SelectedItem="{Binding SelectedTaskStatus}"/>
             </StackPanel>
+
+            <!-- Content Panel -->
+            <controls:MyTasksControl UserTasks="{Binding ShowedTasks, Mode=OneWay}" StartDate="{Binding ViewStartDate, Mode=TwoWay}"  EndDate="{Binding ViewEndDate, Mode=TwoWay}"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            </controls:MyTasksControl>
+
+            <Border Grid.Row="1" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Label Content="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            </Border>
         </Grid>
 
         <!-- Right panel -->

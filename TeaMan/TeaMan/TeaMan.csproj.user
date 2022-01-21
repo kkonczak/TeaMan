@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Controls\MyTasksControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Icons\IconGanttView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,6 +25,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\MyTasksControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Icons\IconGanttView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -31,10 +37,16 @@
     <Page Update="Icons\IconAdd.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Icons\IconRight.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Icons\IconsCalendarView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Icons\IconSettings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconLeft.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Icons\IconTaskView.xaml">

@@ -4,6 +4,7 @@
                     xmlns:views="clr-namespace:TeaMan.Views">
 
     <SolidColorBrush x:Key="AccentColor" Color="#FF7700" />
+    <SolidColorBrush x:Key="SecondColor" Color="#22FFFFFF" />
 
     <Style x:Key="{x:Type Window}" TargetType="Window">
         <Setter Property="Background" Value="#181818" />

@@ -18,10 +18,10 @@ namespace TeaMan
             using (var dbContext = new DatabaseContext())
             {
                 return dbContext.UserTasks.Where(e =>
-                    (!e.PlannedStart.HasValue || (e.PlannedStart.Value >= startDate && e.PlannedStart <= endDate)) &&
-                    (!taskStatusId.HasValue || e.TaskStatusId == taskStatusId) &&
-                    (!taskTypeId.HasValue || e.TaskTypeId == taskTypeId) &&
-                    e.CalendarId == calendarId)
+                        (!e.PlannedStart.HasValue || (e.PlannedStart.Value >= startDate && e.PlannedStart <= endDate)) &&
+                        (!taskStatusId.HasValue || e.TaskStatusId == taskStatusId) &&
+                        (!taskTypeId.HasValue || e.TaskTypeId == taskTypeId) &&
+                        e.CalendarId == calendarId)
                     .ToListAsync();
             }
         }
@@ -47,22 +47,25 @@ namespace TeaMan
                     {
                         TaskStatuses = { todoStatus, inProgressStatus, doneStatus },
                         TaskTypes = { bugType, backlogType, featureType },
-                        UserTasks = {
-                            new Models.UserTask{
-                                Name = "This is the test task. You can add new Task using button \"Add Task\"",
-                                TaskStatus = todoStatus,
-                                TaskType = bugType,
-                                PlannedStart = DateTime.Now,
-                                PlannedEnd = DateTime.Now.AddHours(8)
-                            },
-                            new Models.UserTask{
-                                Name = "This is the second test task. You can add new Task using button \"Add Task\"",
-                                TaskStatus = todoStatus,
-                                TaskType = bugType,
-                                PlannedStart = DateTime.Now.AddHours(10),
-                                PlannedEnd = DateTime.Now.AddHours(12)
+                        UserTasks =
+                            {
+                                new Models.UserTask
+                                {
+                                    Name = "This is the test task. You can add new Task using button \"Add Task\"",
+                                    TaskStatus = todoStatus,
+                                    TaskType = bugType,
+                                    PlannedStart = DateTime.Now,
+                                    PlannedEnd = DateTime.Now.AddHours(8)
+                                },
+                                new Models.UserTask
+                                {
+                                    Name = "This is the second test task. You can add new Task using button \"Add Task\"",
+                                    TaskStatus = todoStatus,
+                                    TaskType = bugType,
+                                    PlannedStart = DateTime.Now.AddHours(10),
+                                    PlannedEnd = DateTime.Now.AddHours(12)
+                                }
                             }
-                        }
                     };
 
                     var todoStatus2 = new Models.TaskStatus("To do", 1);
@@ -76,22 +79,25 @@ namespace TeaMan
                     {
                         TaskStatuses = { todoStatus2, inProgressStatus2, doneStatus2 },
                         TaskTypes = { homeType, companyType },
-                        UserTasks = {
-                            new Models.UserTask{
-                                Name = "This is the test task in second calendar. You can add new Task using button \"Add Task\"",
-                                TaskStatus = todoStatus2,
-                                TaskType = homeType,
-                                PlannedStart = DateTime.Now,
-                                PlannedEnd = DateTime.Now.AddHours(2)
-                            },
-                            new Models.UserTask{
-                                Name = "This is the second test task in second calendar. You can add new Task using button \"Add Task\"",
-                                TaskStatus = todoStatus2,
-                                TaskType = companyType,
-                                PlannedStart = DateTime.Now.AddHours(2),
-                                PlannedEnd = DateTime.Now.AddHours(1)
+                        UserTasks =
+                            {
+                                new Models.UserTask
+                                {
+                                    Name = "This is the test task in second calendar. You can add new Task using button \"Add Task\"",
+                                    TaskStatus = todoStatus2,
+                                    TaskType = homeType,
+                                    PlannedStart = DateTime.Now,
+                                    PlannedEnd = DateTime.Now.AddHours(2)
+                                },
+                                new Models.UserTask
+                                {
+                                    Name = "This is the second test task in second calendar. You can add new Task using button \"Add Task\"",
+                                    TaskStatus = todoStatus2,
+                                    TaskType = companyType,
+                                    PlannedStart = DateTime.Now.AddHours(2),
+                                    PlannedEnd = DateTime.Now.AddHours(1)
+                                }
                             }
-                        }
                     };
 
                     dbContext.Calendars.Add(calendar);
@@ -106,9 +112,9 @@ namespace TeaMan
             using (var dbContext = new DatabaseContext())
             {
                 return dbContext.Calendars.AsQueryable()
-                        .Include(e => e.TaskStatuses)
-                        .Include(e => e.TaskTypes)
-                        .ToListAsync();
+                    .Include(e => e.TaskStatuses)
+                    .Include(e => e.TaskTypes)
+                    .ToListAsync();
             }
         }
 

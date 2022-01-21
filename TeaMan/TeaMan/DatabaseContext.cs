@@ -6,7 +6,7 @@ namespace TeaMan
     public class DatabaseContext : DbContext
     {
         public DbSet<Calendar> Calendars { get; set; }
-        public DbSet<UserTask> Tasks { get; set; }
+        public DbSet<UserTask> UserTasks { get; set; }
         public DbSet<TaskStatus> TaskStatuses { get; set; }
         public DbSet<TaskType> TaskTypes { get; set; }
 
@@ -16,15 +16,15 @@ namespace TeaMan
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserTask>().HasOne(e => e.Calendar)
-                .WithMany(e => e.Tasks)
+                .WithMany(e => e.UserTasks)
                 .HasForeignKey(e => e.CalendarId);
 
             modelBuilder.Entity<UserTask>().HasOne(e => e.TaskStatus)
-                .WithMany(e => e.Tasks)
+                .WithMany(e => e.UserTasks)
                 .HasForeignKey(e => e.TaskStatusId);
 
             modelBuilder.Entity<UserTask>().HasOne(e => e.TaskType)
-                .WithMany(e => e.Tasks)
+                .WithMany(e => e.UserTasks)
                 .HasForeignKey(e => e.TaskTypeId);
 
             modelBuilder.Entity<TaskStatus>().HasOne(e => e.Calendar)

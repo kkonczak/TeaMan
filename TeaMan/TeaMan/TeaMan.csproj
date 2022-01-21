@@ -16,4 +16,24 @@
     <PackageReference Include="ReactiveUI.WPF" Version="13.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Icons\IconRight.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconLeft.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Icons\IconRight.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconLeft.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

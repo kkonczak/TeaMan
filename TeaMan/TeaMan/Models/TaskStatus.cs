@@ -8,6 +8,6 @@ namespace TeaMan.Models
 
         public Calendar Calendar { get; set; }
 
-        public ICollection<UserTask> Tasks { get; set; } = new List<UserTask>();
+        public ICollection<UserTask> UserTasks { get; set; } = new List<UserTask>();
     }
 }

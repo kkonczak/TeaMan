@@ -39,7 +39,7 @@
                 <RowDefinition Height="40" />
             </Grid.RowDefinitions>
 
-            <Button HorizontalContentAlignment="Stretch">
+            <Button HorizontalContentAlignment="Stretch" Command="{Binding AddCalendar}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                     <icons:IconAdd />
                     <TextBlock VerticalAlignment="Center"

@@ -14,6 +14,8 @@
         BasedOn="{StaticResource {x:Type Window}}"/>
     <Style TargetType="{x:Type views:AddTaskView}"
         BasedOn="{StaticResource {x:Type Window}}"/>
+    <Style TargetType="{x:Type views:AddCalendarView}"
+        BasedOn="{StaticResource {x:Type Window}}"/>
 
     <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
         <Setter Property="Foreground" Value="White" />

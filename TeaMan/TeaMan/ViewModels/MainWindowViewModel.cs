@@ -23,6 +23,9 @@ namespace TeaMan.ViewModels
             AddTask = ReactiveCommand.CreateFromTask(AddTaskImpl);
             AddTask.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
+            AddCalendar = ReactiveCommand.CreateFromTask(AddCalendarImpl);
+            AddCalendar.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
             RefreshShowedTasks = ReactiveCommand.CreateFromTask(RefreshShowedTasksImpl);
             RefreshShowedTasks.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
@@ -44,6 +47,8 @@ namespace TeaMan.ViewModels
         public ReactiveCommand<Unit, Unit> Load { get; }
 
         public ReactiveCommand<Unit, Unit> AddTask { get; }
+
+        public ReactiveCommand<Unit, Unit> AddCalendar { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshShowedTasks { get; }
 
@@ -104,6 +109,18 @@ namespace TeaMan.ViewModels
                 await DatabaseController.AddUserTask(vm.Model);
 
                 await RefreshShowedTasksImpl();
+            }
+        }
+
+        private async System.Threading.Tasks.Task AddCalendarImpl(){
+            var vm = new AddCalendarViewModel();
+
+            if (DialogHelper.ShowDialog(vm) == true)
+            {
+                await DatabaseController.AddCalendar(vm.Model);
+
+                Calendars.Clear();
+                Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollections());
             }
         }
     }

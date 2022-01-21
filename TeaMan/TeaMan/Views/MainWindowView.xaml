@@ -1,0 +1,116 @@
+﻿<Window x:Class="TeaMan.Views.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:local="clr-namespace:TeaMan"
+        xmlns:icons="clr-namespace:TeaMan.Icons"
+        xmlns:controls="clr-namespace:TeaMan.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <CollectionViewSource Source="{Binding SelectedCalendar.TaskTypes}" x:Key="taskTypesSource">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Order"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <CollectionViewSource Source="{Binding SelectedCalendar.TaskStatuses}" x:Key="taskStatusesSource">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Order"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+            <ColumnDefinition  Width="40"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left panel -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <Button HorizontalContentAlignment="Stretch">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <icons:IconAdd />
+                    <TextBlock VerticalAlignment="Center"
+                        Foreground="White">
+                        Add Calendar
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+
+            <ListBox Grid.Row="1" ItemsSource="{Binding Calendars}"
+                ItemTemplate="{StaticResource calendarListItem}"
+                SelectedItem="{Binding SelectedCalendar}">
+            </ListBox>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Button Width="40" Height="40">
+                    <icons:IconSettings />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Center panel -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Top bar -->
+            <StackPanel Orientation="Horizontal">
+                <Button Height="40" Width="120" Command="{Binding AddTask}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <icons:IconAdd />
+                        <TextBlock VerticalAlignment="Center" Foreground="White">Add Task</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <ComboBox Margin="2"
+                    ItemsSource="{Binding Source={StaticResource taskTypesSource}}"
+                    ItemTemplate="{StaticResource taskTypesListItem}" 
+                    SelectedItem="{Binding SelectedTaskType}" />
+                <ComboBox Margin="2"
+                    ItemsSource="{Binding Source={StaticResource taskStatusesSource}}"
+                    ItemTemplate="{StaticResource taskStatusesListItem}"
+                    SelectedItem="{Binding SelectedTaskStatus}"/>
+            </StackPanel>
+
+            <!-- Content Panel -->
+            <controls:MyTasksControl UserTasks="{Binding ShowedTasks, Mode=OneWay}" StartDate="{Binding ViewStartDate, Mode=TwoWay}"  EndDate="{Binding ViewEndDate, Mode=TwoWay}"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            </controls:MyTasksControl>
+
+            <Border Grid.Row="1" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Label Content="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+            </Border>
+        </Grid>
+
+        <!-- Right panel -->
+        <StackPanel Orientation="Vertical" Grid.Column="2">
+            <Button Width="40" Height="40">
+                <icons:IconTaskView />
+            </Button>
+            <Button Width="40" Height="40">
+                <icons:IconsCalendarView />
+            </Button>
+            <Button Width="40" Height="40">
+                <icons:IconKanbanView />
+            </Button>
+            <Button Width="40" Height="40">
+                <icons:IconGanttView />
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

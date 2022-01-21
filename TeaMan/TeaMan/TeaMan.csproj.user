@@ -2,12 +2,57 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <ApplicationDefinition Update="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    <Compile Update="Controls\MyTasksControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconGanttView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconKanbanView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconAdd.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconsCalendarView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconSettings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Icons\IconTaskView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Page Update="Controls\MyTasksControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconGanttView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconKanbanView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconAdd.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconRight.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconsCalendarView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconSettings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconLeft.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Icons\IconTaskView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

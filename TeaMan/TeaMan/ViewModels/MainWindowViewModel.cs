@@ -1,0 +1,110 @@
+﻿using DynamicData;
+using Microsoft.EntityFrameworkCore;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using TeaMan.Helpers;
+using TeaMan.Models;
+
+namespace TeaMan.ViewModels
+{
+    public class MainWindowViewModel : ReactiveObject
+    {
+        public MainWindowViewModel()
+        {
+            Load = ReactiveCommand.CreateFromTask(LoadImpl);
+            Load.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
+            AddTask = ReactiveCommand.CreateFromTask(AddTaskImpl);
+            AddTask.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
+            RefreshShowedTasks = ReactiveCommand.CreateFromTask(RefreshShowedTasksImpl);
+            RefreshShowedTasks.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
+            this.WhenAnyValue(
+                x => x.ViewStartDate,
+                x => x.ViewEndDate,
+                x => x.SelectedTaskStatus,
+                x => x.SelectedTaskType)
+                .Select(x => Unit.Default)
+                .InvokeCommand(RefreshShowedTasks);
+
+            this.WhenAnyObservable(x => x.RefreshShowedTasks.IsExecuting)
+                .ToPropertyEx(this, x => x.IsLoading);
+
+            // Test load
+            Load.Execute();
+        }
+
+        public ReactiveCommand<Unit, Unit> Load { get; }
+
+        public ReactiveCommand<Unit, Unit> AddTask { get; }
+
+        public ReactiveCommand<Unit, Unit> RefreshShowedTasks { get; }
+
+        #region Model
+
+        public ObservableCollection<Calendar> Calendars { get; set; } = new ObservableCollection<Calendar>();
+
+        [Reactive]
+        public Calendar SelectedCalendar { get; set; }
+
+        [Reactive]
+        public TaskType SelectedTaskType { get; set; }
+
+        [Reactive]
+        public TaskStatus SelectedTaskStatus { get; set; }
+
+        [Reactive]
+        public DateTime ViewStartDate { get; set; } = DateTime.Now.Date;
+
+        [Reactive]
+        public DateTime ViewEndDate { get; set; } = DateTime.Now.Date.AddDays(1).AddMilliseconds(-1);
+
+        public extern bool IsLoading { [ObservableAsProperty] get; }
+
+        public ObservableCollection<UserTask> ShowedTasks { get; } = new ObservableCollection<UserTask>();
+
+        #endregion
+
+        private async System.Threading.Tasks.Task RefreshShowedTasksImpl()
+        {
+            ShowedTasks.Clear();
+
+            if (SelectedCalendar != null)
+            {
+                ShowedTasks.AddRange(await DatabaseController.GetUserTasks(SelectedCalendar.Id, SelectedTaskStatus?.Id, SelectedTaskType?.Id, ViewStartDate, ViewEndDate));
+            }
+        }
+
+        private async System.Threading.Tasks.Task LoadImpl()
+        {
+            await DatabaseController.InitializeDatabase();
+
+            // Load
+            Calendars.Clear();
+            Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollections());
+
+            SelectedCalendar = Calendars.FirstOrDefault(e => e.Id == SelectedCalendar?.Id) ?? Calendars[0];
+
+            await RefreshShowedTasksImpl();
+        }
+
+        private async System.Threading.Tasks.Task AddTaskImpl()
+        {
+            var vm = new AddTaskViewModel(SelectedCalendar);
+
+            if (DialogHelper.ShowDialog(vm) == true)
+            {
+                await DatabaseController.AddUserTask(vm.Model);
+
+                await RefreshShowedTasksImpl();
+            }
+        }
+    }
+}

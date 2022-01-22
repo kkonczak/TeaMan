@@ -39,7 +39,8 @@ namespace TeaMan.ViewModels
                 x => x.ViewStartDate,
                 x => x.ViewEndDate,
                 x => x.SelectedTaskStatus,
-                x => x.SelectedTaskType)
+                x => x.SelectedTaskType,
+                x => x.SelectedCalendar)
                 .Select(x => Unit.Default)
                 .InvokeCommand(RefreshShowedTasks);
 

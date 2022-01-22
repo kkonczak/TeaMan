@@ -1,6 +1,7 @@
 ﻿using DynamicData;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 using TeaMan.Interactions;
@@ -16,14 +17,12 @@ namespace TeaMan.ViewModels
             TaskTypes.AddRange(calendar.TaskTypes);
 
             Model.CalendarId = calendar.Id;
+            Model.PlannedStart = DateTime.Now;
+            Model.PlannedEnd = DateTime.Now;
 
             Ok = ReactiveCommand.CreateFromObservable(() => CloseWindowInteraction.CloseWindow.Handle(true));
             Cancel = ReactiveCommand.CreateFromObservable(() => CloseWindowInteraction.CloseWindow.Handle(false));
         }
-
-        public ReactiveCommand<Unit, Unit> Ok { get; }
-
-        public ReactiveCommand<Unit, Unit> Cancel { get; }
 
         [Reactive]
         public string WindowName { get; set; } = "Add Task";
@@ -33,5 +32,9 @@ namespace TeaMan.ViewModels
         public ObservableCollection<TaskType> TaskTypes { get; set; } = new ObservableCollection<TaskType>();
 
         public UserTask Model { get; set; } = new UserTask();
+
+        public ReactiveCommand<Unit, Unit> Ok { get; }
+
+        public ReactiveCommand<Unit, Unit> Cancel { get; }
     }
 }

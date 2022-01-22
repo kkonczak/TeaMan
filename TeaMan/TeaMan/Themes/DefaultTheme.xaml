@@ -253,18 +253,26 @@
                                 MinWidth="{TemplateBinding ActualWidth}"
                                 MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="40"/>
                                 </Grid.RowDefinitions>
-                                <Border x:Name="DropDownBorder" Grid.RowSpan="2"
+                                <Border x:Name="DropDownBorder" Grid.RowSpan="3"
                                     BorderThickness="1" BorderBrush="{StaticResource AccentColor}" Background="#222222" CornerRadius="2"/>
-                                <ScrollViewer Margin="4,6,4,6"
+
+                                <Button Command="{TemplateBinding ClearButtonCommand}" HorizontalContentAlignment="Left">
+                                    (All)
+                                </Button>
+
+                                <ScrollViewer
+                                    Margin="4,6,4,6"
+                                    Grid.Row="1"
                                     SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True"
                                         KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
 
-                                <Button Grid.Row="1" Command="{TemplateBinding AddButtonCommand}">
+                                <Button Grid.Row="2" Command="{TemplateBinding AddButtonCommand}">
                                     <StackPanel Orientation="Horizontal">
                                         <icons:IconAdd />
                                         <Label>Add new...</Label>

@@ -77,14 +77,16 @@
                     </StackPanel>
                 </Button>
 
-                <ComboBox Margin="2"
+                <controls:CustomComboBox Margin="2"
                     ItemsSource="{Binding Source={StaticResource taskTypesSource}}"
                     ItemTemplate="{StaticResource taskTypesListItem}" 
-                    SelectedItem="{Binding SelectedTaskType}" />
-                <ComboBox Margin="2"
+                    SelectedItem="{Binding SelectedTaskType}"
+                    AddButtonCommand="{Binding AddTaskType}"/>
+                <controls:CustomComboBox Margin="2"
                     ItemsSource="{Binding Source={StaticResource taskStatusesSource}}"
                     ItemTemplate="{StaticResource taskStatusesListItem}"
-                    SelectedItem="{Binding SelectedTaskStatus}"/>
+                    SelectedItem="{Binding SelectedTaskStatus}"
+                    AddButtonCommand="{Binding AddTaskStatus}"/>
             </StackPanel>
 
             <!-- Content Panel -->

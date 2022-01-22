@@ -55,6 +55,12 @@
     <Page Update="Styles.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\AddTaskStatusView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddTaskTypeView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\AddCalendarView.xaml">
       <SubType>Designer</SubType>
     </Page>

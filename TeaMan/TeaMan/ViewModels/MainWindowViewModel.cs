@@ -23,6 +23,12 @@ namespace TeaMan.ViewModels
             AddTask = ReactiveCommand.CreateFromTask(AddTaskImpl);
             AddTask.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
+            AddTaskType = ReactiveCommand.CreateFromTask(AddTaskTypeImpl);
+            AddTaskType.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
+            AddTaskStatus = ReactiveCommand.CreateFromTask(AddTaskStatusImpl);
+            AddTaskStatus.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
             AddCalendar = ReactiveCommand.CreateFromTask(AddCalendarImpl);
             AddCalendar.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
@@ -49,6 +55,10 @@ namespace TeaMan.ViewModels
         public ReactiveCommand<Unit, Unit> AddTask { get; }
 
         public ReactiveCommand<Unit, Unit> AddCalendar { get; }
+
+        public ReactiveCommand<Unit, Unit> AddTaskType { get; }
+
+        public ReactiveCommand<Unit, Unit> AddTaskStatus { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshShowedTasks { get; }
 
@@ -112,16 +122,45 @@ namespace TeaMan.ViewModels
             }
         }
 
-        private async System.Threading.Tasks.Task AddCalendarImpl(){
+        private async System.Threading.Tasks.Task AddCalendarImpl()
+        {
             var vm = new AddCalendarViewModel();
 
             if (DialogHelper.ShowDialog(vm) == true)
             {
                 await DatabaseController.AddCalendar(vm.Model);
-
-                Calendars.Clear();
-                Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollections());
+                await ReloadCalendars();
             }
+        }
+
+        private async System.Threading.Tasks.Task AddTaskTypeImpl()
+        {
+            var vm = new AddTaskTypeViewModel(SelectedCalendar);
+
+            if (DialogHelper.ShowDialog(vm) == true)
+            {
+                await DatabaseController.AddTaskType(vm.Model);
+                await ReloadCalendars();
+            }
+        }
+
+        private async System.Threading.Tasks.Task AddTaskStatusImpl()
+        {
+            var vm = new AddTaskStatusViewModel(SelectedCalendar);
+
+            if (DialogHelper.ShowDialog(vm) == true)
+            {
+                await DatabaseController.AddTaskStatus(vm.Model);
+                await ReloadCalendars();
+            }
+        }
+
+        private async System.Threading.Tasks.Task ReloadCalendars()
+        {
+            var previousCalendarId = SelectedCalendar.Id;
+            Calendars.Clear();
+            Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollections());
+            SelectedCalendar = Calendars.FirstOrDefault(e => e.Id == previousCalendarId);
         }
     }
 }

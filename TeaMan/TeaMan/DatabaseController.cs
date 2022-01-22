@@ -137,5 +137,27 @@ namespace TeaMan
                 await dbContext.SaveChangesAsync();
             }
         }
+
+        public static async Task AddTaskType(Models.TaskType taskType)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var orderOfLastTaskType = await dbContext.TaskTypes.Select(e => e.Order).MaxAsync();
+                taskType.Order = orderOfLastTaskType + 1;
+                dbContext.TaskTypes.Add(taskType);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public static async Task AddTaskStatus(Models.TaskStatus taskStatus)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var orderOfLastTaskStatus = await dbContext.TaskStatuses.Select(e => e.Order).MaxAsync();
+                taskStatus.Order = orderOfLastTaskStatus + 1;
+                dbContext.TaskStatuses.Add(taskStatus);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

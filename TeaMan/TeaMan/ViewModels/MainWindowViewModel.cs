@@ -39,7 +39,8 @@ namespace TeaMan.ViewModels
                 x => x.ViewStartDate,
                 x => x.ViewEndDate,
                 x => x.SelectedTaskStatus,
-                x => x.SelectedTaskType)
+                x => x.SelectedTaskType,
+                x => x.SelectedCalendar)
                 .Select(x => Unit.Default)
                 .InvokeCommand(RefreshShowedTasks);
 
@@ -93,17 +94,17 @@ namespace TeaMan.ViewModels
 
             if (SelectedCalendar != null)
             {
-                ShowedTasks.AddRange(await DatabaseController.GetUserTasks(SelectedCalendar.Id, SelectedTaskStatus?.Id, SelectedTaskType?.Id, ViewStartDate, ViewEndDate));
+                ShowedTasks.AddRange(await DatabaseController.GetUserTasksAsync(SelectedCalendar.Id, SelectedTaskStatus?.Id, SelectedTaskType?.Id, ViewStartDate, ViewEndDate));
             }
         }
 
         private async System.Threading.Tasks.Task LoadImpl()
         {
-            await DatabaseController.InitializeDatabase();
+            await DatabaseController.InitializeDatabaseAsync();
 
             // Load
             Calendars.Clear();
-            Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollections());
+            Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollectionsAsync());
 
             SelectedCalendar = Calendars.FirstOrDefault(e => e.Id == SelectedCalendar?.Id) ?? Calendars[0];
 
@@ -116,7 +117,7 @@ namespace TeaMan.ViewModels
 
             if (DialogHelper.ShowDialog(vm) == true)
             {
-                await DatabaseController.AddUserTask(vm.Model);
+                await DatabaseController.AddUserTaskAsync(vm.Model);
 
                 await RefreshShowedTasksImpl();
             }
@@ -128,7 +129,7 @@ namespace TeaMan.ViewModels
 
             if (DialogHelper.ShowDialog(vm) == true)
             {
-                await DatabaseController.AddCalendar(vm.Model);
+                await DatabaseController.AddCalendarAsync(vm.Model);
                 await ReloadCalendars();
             }
         }
@@ -139,7 +140,7 @@ namespace TeaMan.ViewModels
 
             if (DialogHelper.ShowDialog(vm) == true)
             {
-                await DatabaseController.AddTaskType(vm.Model);
+                await DatabaseController.AddTaskTypeAsync(vm.Model);
                 await ReloadCalendars();
             }
         }
@@ -150,7 +151,7 @@ namespace TeaMan.ViewModels
 
             if (DialogHelper.ShowDialog(vm) == true)
             {
-                await DatabaseController.AddTaskStatus(vm.Model);
+                await DatabaseController.AddTaskStatusAsync(vm.Model);
                 await ReloadCalendars();
             }
         }
@@ -159,7 +160,7 @@ namespace TeaMan.ViewModels
         {
             var previousCalendarId = SelectedCalendar.Id;
             Calendars.Clear();
-            Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollections());
+            Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollectionsAsync());
             SelectedCalendar = Calendars.FirstOrDefault(e => e.Id == previousCalendarId);
         }
     }

@@ -8,7 +8,7 @@ namespace TeaMan
 {
     public static class DatabaseController
     {
-        public static Task<List<Models.UserTask>> GetUserTasks(
+        public static Task<List<Models.UserTask>> GetUserTasksAsync(
             int calendarId,
             int? taskStatusId,
             int? taskTypeId,
@@ -26,7 +26,7 @@ namespace TeaMan
             }
         }
 
-        public static async Task InitializeDatabase()
+        public static async Task InitializeDatabaseAsync()
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -107,7 +107,7 @@ namespace TeaMan
             }
         }
 
-        public static Task<List<Models.Calendar>> GetCalendarsWithIncludedCollections()
+        public static Task<List<Models.Calendar>> GetCalendarsWithIncludedCollectionsAsync()
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -118,7 +118,7 @@ namespace TeaMan
             }
         }
 
-        public static Task AddUserTask(Models.UserTask userTask)
+        public static Task AddUserTaskAsync(Models.UserTask userTask)
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -127,7 +127,7 @@ namespace TeaMan
             }
         }
 
-        public static async Task AddCalendar(Models.Calendar calendar)
+        public static async Task AddCalendarAsync(Models.Calendar calendar)
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -138,7 +138,7 @@ namespace TeaMan
             }
         }
 
-        public static async Task AddTaskType(Models.TaskType taskType)
+        public static async Task AddTaskTypeAsync(Models.TaskType taskType)
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -149,7 +149,7 @@ namespace TeaMan
             }
         }
 
-        public static async Task AddTaskStatus(Models.TaskStatus taskStatus)
+        public static async Task AddTaskStatusAsync(Models.TaskStatus taskStatus)
         {
             using (var dbContext = new DatabaseContext())
             {

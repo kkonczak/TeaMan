@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Icons\IconCalendar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Icons\IconRight.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -27,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Icons\IconCalendar.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Icons\IconRight.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

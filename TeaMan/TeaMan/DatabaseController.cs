@@ -138,6 +138,15 @@ namespace TeaMan
             }
         }
 
+        public static async Task DeleteCalendarAsync(Models.Calendar calendar)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                dbContext.Calendars.Remove(await dbContext.Calendars.FirstAsync(e => e.Id == calendar.Id));
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
         public static async Task AddTaskTypeAsync(Models.TaskType taskType)
         {
             using (var dbContext = new DatabaseContext())

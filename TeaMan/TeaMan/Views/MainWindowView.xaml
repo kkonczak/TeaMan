@@ -52,6 +52,12 @@
             <ListBox Grid.Row="1" ItemsSource="{Binding Calendars}"
                 ItemTemplate="{StaticResource calendarListItem}"
                 SelectedItem="{Binding SelectedCalendar}">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Delete" Command="{Binding DeleteCalendar}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
             </ListBox>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2">

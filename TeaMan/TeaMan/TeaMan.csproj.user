@@ -58,6 +58,9 @@
     <Page Update="Styles.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\AddTaskStatusView.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -13,7 +13,8 @@ namespace TeaMan.Helpers
             [typeof(AddTaskViewModel)] = typeof(AddTaskView),
             [typeof(AddCalendarViewModel)] = typeof(AddCalendarView),
             [typeof(AddTaskTypeViewModel)] = typeof(AddTaskTypeView),
-            [typeof(AddTaskStatusViewModel)] = typeof(AddTaskStatusView)
+            [typeof(AddTaskStatusViewModel)] = typeof(AddTaskStatusView),
+            [typeof(MessageBoxViewModel)] = typeof(MessageBoxView)
         };
 
         public static bool? ShowDialog<T>(T viewModel)
@@ -34,5 +35,8 @@ namespace TeaMan.Helpers
 
             return null;
         }
+
+        public static bool? ShowMessageBox(string message, string title = "TeaMan", string okButtonText = "Ok", string cancelButtonText = "Cancel") =>
+            ShowDialog(new MessageBoxViewModel(message, title, okButtonText, cancelButtonText));
     }
 }

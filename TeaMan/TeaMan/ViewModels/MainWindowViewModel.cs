@@ -32,6 +32,9 @@ namespace TeaMan.ViewModels
             AddCalendar = ReactiveCommand.CreateFromTask(AddCalendarImpl);
             AddCalendar.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
+            DeleteCalendar = ReactiveCommand.CreateFromTask<Calendar>(DeleteCalendarImpl);
+            DeleteCalendar.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
             RefreshShowedTasks = ReactiveCommand.CreateFromTask(RefreshShowedTasksImpl);
             RefreshShowedTasks.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
@@ -60,6 +63,8 @@ namespace TeaMan.ViewModels
         public ReactiveCommand<Unit, Unit> AddTaskType { get; }
 
         public ReactiveCommand<Unit, Unit> AddTaskStatus { get; }
+
+        public ReactiveCommand<Calendar, Unit> DeleteCalendar { get; }
 
         public ReactiveCommand<Unit, Unit> RefreshShowedTasks { get; }
 
@@ -162,6 +167,15 @@ namespace TeaMan.ViewModels
             Calendars.Clear();
             Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollectionsAsync());
             SelectedCalendar = Calendars.FirstOrDefault(e => e.Id == previousCalendarId);
+        }
+
+        private async System.Threading.Tasks.Task DeleteCalendarImpl(Calendar calendar)
+        {
+            if (DialogHelper.ShowMessageBox($"Are you sure you want to delete calendar \"{calendar.Name}\"?", "Calendar delete", "Yes", "No") == true)
+            {
+                await DatabaseController.DeleteCalendarAsync(calendar);
+                await ReloadCalendars();
+            }
         }
     }
 }

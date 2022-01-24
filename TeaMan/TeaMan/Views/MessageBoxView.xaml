@@ -1,0 +1,32 @@
+﻿<Window x:Class="TeaMan.Views.MessageBoxView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="100"
+        Width="465"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="NoResize"
+        Title="{Binding WindowName}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding Message}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" FlowDirection="RightToLeft">
+            <Button Margin="3" Height="30" Command="{Binding Cancel}" Content="{Binding CancelButtonText}" />
+            <Button Margin="3" Height="30" Command="{Binding Ok}" Content="{Binding OkButtonText}" />
+        </StackPanel>
+    </Grid>
+</Window>

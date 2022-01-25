@@ -10,6 +10,11 @@ namespace TeaMan.Helpers
     {
         private static Dictionary<Type, Type> mapping = new Dictionary<Type, Type>()
         {
+            [typeof(AddTaskViewModel)] = typeof(AddTaskView),
+            [typeof(AddCalendarViewModel)] = typeof(AddCalendarView),
+            [typeof(AddTaskTypeViewModel)] = typeof(AddTaskTypeView),
+            [typeof(AddTaskStatusViewModel)] = typeof(AddTaskStatusView),
+            [typeof(MessageBoxViewModel)] = typeof(MessageBoxView),
             [typeof(AddTaskViewModel)] = typeof(AddTaskView)
         };
 
@@ -31,5 +36,8 @@ namespace TeaMan.Helpers
 
             return null;
         }
+
+        public static bool? ShowMessageBox(string message, string title = "TeaMan", string okButtonText = "Ok", string cancelButtonText = "Cancel") =>
+            ShowDialog(new MessageBoxViewModel(message, title, okButtonText, cancelButtonText));
     }
 }

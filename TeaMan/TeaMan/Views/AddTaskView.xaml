@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:TeaMan.Views"
+        xmlns:controls="clr-namespace:TeaMan.Controls"
         mc:Ignorable="d"
         Height="254"
         Width="465"
@@ -65,7 +66,7 @@
         <Label Grid.Row="1">Task Type:</Label>
         <ComboBox
             Grid.Row="1"
-            Grid.Column="1" 
+            Grid.Column="1"
             ItemsSource="{Binding Source={StaticResource taskTypesSource}}"
             ItemTemplate="{StaticResource taskTypesListItem}"
             SelectedValue="{Binding Model.TaskTypeId, UpdateSourceTrigger=PropertyChanged}"
@@ -74,17 +75,17 @@
         <Label Grid.Row="2">Task Status:</Label>
         <ComboBox
             Grid.Row="2"
-            Grid.Column="1" 
+            Grid.Column="1"
             ItemsSource="{Binding Source={StaticResource taskStatusesSource}}"
             ItemTemplate="{StaticResource taskStatusesListItem}"
             SelectedValue="{Binding Model.TaskStatusId, UpdateSourceTrigger=PropertyChanged}"
             SelectedValuePath="Id"/>
 
         <Label Grid.Row="3">Start date:</Label>
-        <DatePicker Grid.Row="3" Grid.Column="1" SelectedDate="{Binding Model.PlannedStart, UpdateSourceTrigger=PropertyChanged}" />
+        <controls:DateTimePicker Grid.Row="3" Grid.Column="1"  DateTime="{Binding Model.PlannedStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <Label Grid.Row="4">End date:</Label>
-        <DatePicker Grid.Row="4" Grid.Column="1" SelectedDate="{Binding Model.PlannedEnd, UpdateSourceTrigger=PropertyChanged}" />
+        <controls:DateTimePicker Grid.Row="4" Grid.Column="1" DateTime="{Binding Model.PlannedEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
 
         <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" FlowDirection="RightToLeft">
             <Button Margin="3" Height="30" Command="{Binding Cancel}">Cancel</Button>

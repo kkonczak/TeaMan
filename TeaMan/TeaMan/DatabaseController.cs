@@ -8,7 +8,7 @@ namespace TeaMan
 {
     public static class DatabaseController
     {
-        public static Task<List<Models.UserTask>> GetUserTasks(
+        public static Task<List<Models.UserTask>> GetUserTasksAsync(
             int calendarId,
             int? taskStatusId,
             int? taskTypeId,
@@ -26,7 +26,7 @@ namespace TeaMan
             }
         }
 
-        public static async Task InitializeDatabase()
+        public static async Task InitializeDatabaseAsync()
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -106,8 +106,8 @@ namespace TeaMan
                 }
             }
         }
-
-        public static Task<List<Models.Calendar>> GetCalendarsWithIncludedCollections()
+      
+        public static Task<List<Models.Calendar>> GetCalendarsWithIncludedCollectionsAsync()
         {
             using (var dbContext = new DatabaseContext())
             {
@@ -117,13 +117,64 @@ namespace TeaMan
                     .ToListAsync();
             }
         }
-
-        public static Task AddUserTask(Models.UserTask userTask)
+      
+        public static Task AddUserTaskAsync(Models.UserTask userTask)
         {
             using (var dbContext = new DatabaseContext())
             {
                 dbContext.UserTasks.Add(userTask);
                 return dbContext.SaveChangesAsync();
+            }
+        }
+
+        public static async Task AddCalendarAsync(Models.Calendar calendar)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var orderOfLastCalendar = await dbContext.Calendars
+                    .Select(e => (int?)e.Order)
+                    .MaxAsync();
+
+                calendar.Order = orderOfLastCalendar ?? 0 + 1;
+                dbContext.Calendars.Add(calendar);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public static async Task DeleteCalendarAsync(Models.Calendar calendar)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                dbContext.Calendars.Remove(await dbContext.Calendars.FirstAsync(e => e.Id == calendar.Id));
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public static async Task AddTaskTypeAsync(Models.TaskType taskType)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var orderOfLastTaskType = await dbContext.TaskTypes
+                    .Select(e => (int?)e.Order)
+                    .MaxAsync();
+
+                taskType.Order = orderOfLastTaskType ?? 0 + 1;
+                dbContext.TaskTypes.Add(taskType);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public static async Task AddTaskStatusAsync(Models.TaskStatus taskStatus)
+        {
+            using (var dbContext = new DatabaseContext())
+            {
+                var orderOfLastTaskStatus = await dbContext.TaskStatuses
+                    .Select(e => (int?)e.Order)
+                    .MaxAsync();
+
+                taskStatus.Order = orderOfLastTaskStatus ?? 0 + 1;
+                dbContext.TaskStatuses.Add(taskStatus);
+                await dbContext.SaveChangesAsync();
             }
         }
     }

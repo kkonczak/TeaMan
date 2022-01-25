@@ -106,7 +106,7 @@ namespace TeaMan
                 }
             }
         }
-
+      
         public static Task<List<Models.Calendar>> GetCalendarsWithIncludedCollectionsAsync()
         {
             using (var dbContext = new DatabaseContext())
@@ -117,7 +117,7 @@ namespace TeaMan
                     .ToListAsync();
             }
         }
-
+      
         public static Task AddUserTaskAsync(Models.UserTask userTask)
         {
             using (var dbContext = new DatabaseContext())

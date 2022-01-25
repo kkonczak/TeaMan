@@ -14,7 +14,8 @@ namespace TeaMan.Helpers
             [typeof(AddCalendarViewModel)] = typeof(AddCalendarView),
             [typeof(AddTaskTypeViewModel)] = typeof(AddTaskTypeView),
             [typeof(AddTaskStatusViewModel)] = typeof(AddTaskStatusView),
-            [typeof(MessageBoxViewModel)] = typeof(MessageBoxView)
+            [typeof(MessageBoxViewModel)] = typeof(MessageBoxView),
+            [typeof(AddTaskViewModel)] = typeof(AddTaskView)
         };
 
         public static bool? ShowDialog<T>(T viewModel)

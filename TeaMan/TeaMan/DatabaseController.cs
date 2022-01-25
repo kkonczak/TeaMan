@@ -131,8 +131,11 @@ namespace TeaMan
         {
             using (var dbContext = new DatabaseContext())
             {
-                var orderOfLastCalendar = await dbContext.Calendars.Select(e => e.Order).MaxAsync();
-                calendar.Order = orderOfLastCalendar + 1;
+                var orderOfLastCalendar = await dbContext.Calendars
+                    .Select(e => (int?)e.Order)
+                    .MaxAsync();
+
+                calendar.Order = orderOfLastCalendar ?? 0 + 1;
                 dbContext.Calendars.Add(calendar);
                 await dbContext.SaveChangesAsync();
             }
@@ -151,8 +154,11 @@ namespace TeaMan
         {
             using (var dbContext = new DatabaseContext())
             {
-                var orderOfLastTaskType = await dbContext.TaskTypes.Select(e => e.Order).MaxAsync();
-                taskType.Order = orderOfLastTaskType + 1;
+                var orderOfLastTaskType = await dbContext.TaskTypes
+                    .Select(e => (int?)e.Order)
+                    .MaxAsync();
+
+                taskType.Order = orderOfLastTaskType ?? 0 + 1;
                 dbContext.TaskTypes.Add(taskType);
                 await dbContext.SaveChangesAsync();
             }
@@ -162,8 +168,11 @@ namespace TeaMan
         {
             using (var dbContext = new DatabaseContext())
             {
-                var orderOfLastTaskStatus = await dbContext.TaskStatuses.Select(e => e.Order).MaxAsync();
-                taskStatus.Order = orderOfLastTaskStatus + 1;
+                var orderOfLastTaskStatus = await dbContext.TaskStatuses
+                    .Select(e => (int?)e.Order)
+                    .MaxAsync();
+
+                taskStatus.Order = orderOfLastTaskStatus ?? 0 + 1;
                 dbContext.TaskStatuses.Add(taskStatus);
                 await dbContext.SaveChangesAsync();
             }

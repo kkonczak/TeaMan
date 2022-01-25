@@ -173,10 +173,10 @@ namespace TeaMan.ViewModels
 
         private async System.Threading.Tasks.Task ReloadCalendars()
         {
-            var previousCalendarId = SelectedCalendar.Id;
+            var previousCalendarId = SelectedCalendar?.Id;
             Calendars.Clear();
             Calendars.AddRange(await DatabaseController.GetCalendarsWithIncludedCollectionsAsync());
-            SelectedCalendar = Calendars.FirstOrDefault(e => e.Id == previousCalendarId);
+            SelectedCalendar = Calendars.FirstOrDefault(e => !previousCalendarId.HasValue || e.Id == previousCalendarId);
         }
 
         private async System.Threading.Tasks.Task DeleteCalendarImpl(Calendar calendar)

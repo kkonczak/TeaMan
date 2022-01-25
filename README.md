@@ -1,6 +1,6 @@
 ![image](https://img.shields.io/github/workflow/status/kkonczak/TeaMan/.NET) ![image](https://img.shields.io/github/languages/top/kkonczak/TeaMan) ![image](https://img.shields.io/github/issues/kkonczak/TeaMan) ![image](https://img.shields.io/github/issues-closed/kkonczak/TeaMan) ![GitHub last commit](https://img.shields.io/github/last-commit/kkonczak/TeaMan) ![image](https://img.shields.io/github/license/kkonczak/TeaMan) ![image](https://img.shields.io/github/v/tag/kkonczak/TeaMan) [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
 # TeaMan
-Simple App to tasks and time management. It works local on PC or laptops with installed .Net Core. It use WPF framework, so on Linux you must use Wine.
+Simple App to tasks and time management. It works local on PC or laptops with installed .Net Core. It uses WPF framework, so on Linux you must use Wine.
 
 ## Used technologies
 * .Net Core 3.1

@@ -21,4 +21,7 @@ Simple App to tasks and time management. It works local on PC or laptops with in
 
 ## Screenshoots
 
-![obraz](https://user-images.githubusercontent.com/20493874/150607234-2ffdbb50-af2d-4171-8389-0e2dafa1bd45.png)
+![obraz](https://user-images.githubusercontent.com/20493874/151038799-262c8fee-45f2-4471-9012-43992987b806.png)
+![obraz](https://user-images.githubusercontent.com/20493874/151038881-1df7b6f4-6153-4bfe-9c2e-41999c1860a7.png)
+![obraz](https://user-images.githubusercontent.com/20493874/151038949-090e8556-014b-43fe-8c4c-e5f5ff900657.png)
+![obraz](https://user-images.githubusercontent.com/20493874/151039013-db0bee76-1345-4e42-a2a4-792387758f24.png)

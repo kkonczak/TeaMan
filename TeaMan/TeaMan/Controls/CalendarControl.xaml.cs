@@ -26,6 +26,13 @@ namespace TeaMan.Controls
                 typeof(CalendarControl),
                 new PropertyMetadata(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0)));
 
+        public static readonly DependencyProperty SelectedDateProperty =
+             DependencyProperty.Register(
+                nameof(SelectedDate),
+                typeof(DateTime),
+                typeof(CalendarControl),
+                new PropertyMetadata(DateTime.Now));
+
         public static readonly DependencyProperty EndDateProperty =
              DependencyProperty.Register(
                 nameof(EndDate),
@@ -79,6 +86,12 @@ namespace TeaMan.Controls
             set { SetValue(StartDateProperty, value); }
         }
 
+        public DateTime SelectedDate
+        {
+            get { return (DateTime)GetValue(SelectedDateProperty); }
+            set { SetValue(SelectedDateProperty, value); }
+        }
+
         public DateTime EndDate
         {
             get { return (DateTime)GetValue(EndDateProperty); }
@@ -97,6 +110,7 @@ namespace TeaMan.Controls
         {
             var firstDateOfCurrentMonth = new DateTime(StartDate.Year, StartDate.Month, 1, 0, 0, 0);
             StartDate = firstDateOfCurrentMonth.AddMonths(-1);
+            SetSelectedDate();
             EndDate = StartDate.Date.AddMonths(1).AddMilliseconds(-1);
         }
 
@@ -104,8 +118,17 @@ namespace TeaMan.Controls
         {
             var firstDateOfCurrentMonth = new DateTime(StartDate.Year, StartDate.Month, 1, 0, 0, 0);
             StartDate = firstDateOfCurrentMonth.AddMonths(1);
+            SetSelectedDate();
             EndDate = StartDate.Date.AddMonths(1).AddMilliseconds(-1);
         }
+
+        private void SetSelectedDate() =>
+            SelectedDate = new DateTime(
+                StartDate.Year,
+                StartDate.Month,
+                SelectedDate.Day <= GetDaysNumberForMonthAndYear(StartDate.Month, StartDate.Year) ?
+                    SelectedDate.Day :
+                    GetDaysNumberForMonthAndYear(StartDate.Month, StartDate.Year));
 
         private void RegenerateCalendarImpl()
         {
@@ -137,7 +160,8 @@ namespace TeaMan.Controls
                         Label = dayOfMonth.ToString(),
                         DayInMonth = dayOfMonth,
                         Column = x,
-                        Row = y + 1
+                        Row = y + 1,
+                        IsSelected = SelectedDate.Day == dayOfMonth
                     };
 
                     DaysInCalendar.Add(dayInCalendar);

@@ -66,8 +66,4 @@
     </Page>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controls\Calendar\ValueConverters\" />
-  </ItemGroup>
-
 </Project>

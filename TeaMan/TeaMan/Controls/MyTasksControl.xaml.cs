@@ -17,6 +17,10 @@ namespace TeaMan.Controls
              DependencyProperty.Register(nameof(StartDate), typeof(DateTime), typeof(MyTasksControl),
                 new PropertyMetadata(DateTime.Now));
 
+        public static readonly DependencyProperty SelectedDateProperty =
+             DependencyProperty.Register(nameof(SelectedDate), typeof(DateTime), typeof(MyTasksControl),
+                new PropertyMetadata(DateTime.Now));
+
         public static readonly DependencyProperty EndDateProperty =
              DependencyProperty.Register(nameof(EndDate), typeof(DateTime), typeof(MyTasksControl),
                 new PropertyMetadata(DateTime.Now));
@@ -43,6 +47,12 @@ namespace TeaMan.Controls
             set { SetValue(StartDateProperty, value); }
         }
 
+        public DateTime SelectedDate
+        {
+            get { return (DateTime)GetValue(SelectedDateProperty); }
+            set { SetValue(SelectedDateProperty, value); }
+        }
+
         public DateTime EndDate
         {
             get { return (DateTime)GetValue(EndDateProperty); }
@@ -58,12 +68,14 @@ namespace TeaMan.Controls
         private void PreviousDayImpl()
         {
             StartDate = StartDate.Date.AddDays(-1);
+            SelectedDate = StartDate;
             EndDate = StartDate.Date.AddDays(1).AddMilliseconds(-1);
         }
 
         private void NextDayImpl()
         {
             StartDate = StartDate.Date.AddDays(1);
+            SelectedDate = StartDate;
             EndDate = StartDate.Date.AddDays(1).AddMilliseconds(-1);
         }
     }

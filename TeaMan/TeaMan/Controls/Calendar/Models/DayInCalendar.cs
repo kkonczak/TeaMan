@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace TeaMan.Controls.Calendar.Models
 {
@@ -14,6 +13,8 @@ namespace TeaMan.Controls.Calendar.Models
         public int DayInMonth { get; set; }
 
         public bool IsHeader { get; set; }
+
+        public bool IsSelected { get; set; }
 
         public ObservableCollection<Appointment> Appointments { get; set; } = new ObservableCollection<Appointment>();
     }

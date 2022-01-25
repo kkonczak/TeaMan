@@ -1,5 +1,4 @@
 ﻿using DynamicData;
-using Microsoft.EntityFrameworkCore;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -8,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using TeaMan.Enums;
 using TeaMan.Helpers;
 using TeaMan.Models;
 
@@ -38,13 +38,16 @@ namespace TeaMan.ViewModels
             RefreshShowedTasks = ReactiveCommand.CreateFromTask(RefreshShowedTasksImpl);
             RefreshShowedTasks.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
 
+            SetValidDates = ReactiveCommand.Create<CurrentView>(SetValidDatesImpl);
+            SetValidDates.ThrownExceptions.Subscribe(ex => { Debug.WriteLine(ex); });
+
             this.WhenAnyValue(
                 x => x.ViewStartDate,
                 x => x.ViewEndDate,
                 x => x.SelectedTaskStatus,
                 x => x.SelectedTaskType,
                 x => x.SelectedCalendar)
-                .Throttle(new TimeSpan(0, 0, 0, 0, 300))
+                .Throttle(new TimeSpan(0, 0, 0, 0, 30))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Select(x => Unit.Default)
                 .InvokeCommand(RefreshShowedTasks);
@@ -70,6 +73,8 @@ namespace TeaMan.ViewModels
 
         public ReactiveCommand<Unit, Unit> RefreshShowedTasks { get; }
 
+        public ReactiveCommand<CurrentView, Unit> SetValidDates { get; }
+
         #region Model
 
         public ObservableCollection<Calendar> Calendars { get; set; } = new ObservableCollection<Calendar>();
@@ -85,6 +90,9 @@ namespace TeaMan.ViewModels
 
         [Reactive]
         public DateTime ViewStartDate { get; set; } = DateTime.Now.Date;
+
+        [Reactive]
+        public DateTime ViewSelectedDate { get; set; } = DateTime.Now.Date;
 
         [Reactive]
         public DateTime ViewEndDate { get; set; } = DateTime.Now.Date.AddDays(1).AddMilliseconds(-1);
@@ -173,10 +181,25 @@ namespace TeaMan.ViewModels
 
         private async System.Threading.Tasks.Task DeleteCalendarImpl(Calendar calendar)
         {
-            if (DialogHelper.ShowMessageBox($"Are you sure you want to delete calendar \"{calendar.Name}\"?", "Calendar delete", "Yes", "No") == true)
+            if (DialogHelper.ShowMessageBox($"Are you sure you want to delete calendar \"{calendar.Name}\"?", "Delete calendar", "Yes", "No") == true)
             {
                 await DatabaseController.DeleteCalendarAsync(calendar);
                 await ReloadCalendars();
+            }
+        }
+
+        private void SetValidDatesImpl(CurrentView currentView)
+        {
+            switch (currentView)
+            {
+                case CurrentView.MyTasks:
+                    ViewStartDate = ViewSelectedDate;
+                    ViewEndDate = ViewStartDate.AddDays(1).AddMilliseconds(-1);
+                    break;
+                case CurrentView.Calendar:
+                    ViewStartDate = new DateTime(ViewSelectedDate.Year, ViewSelectedDate.Month, 1);
+                    ViewEndDate = ViewStartDate.AddMonths(1).AddMilliseconds(-1);
+                    break;
             }
         }
     }

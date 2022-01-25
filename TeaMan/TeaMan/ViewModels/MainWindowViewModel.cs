@@ -44,6 +44,8 @@ namespace TeaMan.ViewModels
                 x => x.SelectedTaskStatus,
                 x => x.SelectedTaskType,
                 x => x.SelectedCalendar)
+                .Throttle(new TimeSpan(0, 0, 0, 0, 300))
+                .ObserveOn(RxApp.MainThreadScheduler)
                 .Select(x => Unit.Default)
                 .InvokeCommand(RefreshShowedTasks);
 

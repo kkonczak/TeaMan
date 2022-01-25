@@ -459,4 +459,30 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="ViewChangeRadioButton" TargetType="RadioButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border x:Name="Border" Padding="10,5,10,5" BorderThickness="1" CornerRadius="5" Background="Transparent" TextBlock.Foreground="White">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Stretch" TextBlock.TextAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#22FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#22FFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CalendarAppointment" TargetType="TextBlock">
+        <Setter Property="Background" Value="#22FFFFFF" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
 </ResourceDictionary>

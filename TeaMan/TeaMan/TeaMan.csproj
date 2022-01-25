@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\CalendarControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Icons\IconCalendar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\CalendarControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Icons\IconCalendar.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -57,6 +64,10 @@
     <Page Update="Views\AddCalendarView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\Calendar\ValueConverters\" />
   </ItemGroup>
 
 </Project>

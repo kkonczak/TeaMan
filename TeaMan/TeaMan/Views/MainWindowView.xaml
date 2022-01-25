@@ -96,9 +96,26 @@
             </StackPanel>
 
             <!-- Content Panel -->
-            <controls:MyTasksControl UserTasks="{Binding ShowedTasks, Mode=OneWay}" StartDate="{Binding ViewStartDate, Mode=TwoWay}"  EndDate="{Binding ViewEndDate, Mode=TwoWay}"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <controls:MyTasksControl
+                Visibility="{Binding ElementName=viewTaskButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+                UserTasks="{Binding ShowedTasks, Mode=OneWay}"
+                StartDate="{Binding ViewStartDate, Mode=TwoWay}"
+                EndDate="{Binding ViewEndDate, Mode=TwoWay}"
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
             </controls:MyTasksControl>
+            <controls:CalendarControl
+                Visibility="{Binding ElementName=viewCalendarButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+                UserTasks="{Binding ShowedTasks, Mode=OneWay}"
+                StartDate="{Binding ViewStartDate, Mode=TwoWay}"
+                EndDate="{Binding ViewEndDate, Mode=TwoWay}"
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            </controls:CalendarControl>
 
+            <!-- Loading indicator -->
             <Border Grid.Row="1" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Label Content="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
             </Border>
@@ -106,18 +123,39 @@
 
         <!-- Right panel -->
         <StackPanel Orientation="Vertical" Grid.Column="2">
-            <Button Width="40" Height="40">
+            <RadioButton 
+                x:Name="viewTaskButton"
+                GroupName="view"
+                Width="40"
+                Height="40"
+                IsChecked="True"
+                Style="{StaticResource ViewChangeRadioButton}">
                 <icons:IconTaskView />
-            </Button>
-            <Button Width="40" Height="40">
+            </RadioButton>
+            <RadioButton
+                x:Name="viewCalendarButton"
+                GroupName="view"
+                Width="40"
+                Height="40"
+                Style="{StaticResource ViewChangeRadioButton}">
                 <icons:IconsCalendarView />
-            </Button>
-            <Button Width="40" Height="40">
+            </RadioButton>
+            <RadioButton
+                x:Name="viewKanbanButton"
+                GroupName="view"
+                Width="40"
+                Height="40"
+                Style="{StaticResource ViewChangeRadioButton}">
                 <icons:IconKanbanView />
-            </Button>
-            <Button Width="40" Height="40">
+            </RadioButton>
+            <RadioButton
+                x:Name="viewGanttButton"
+                GroupName="view"
+                Width="40"
+                Height="40"
+                Style="{StaticResource ViewChangeRadioButton}">
                 <icons:IconGanttView />
-            </Button>
+            </RadioButton>
         </StackPanel>
 
     </Grid>

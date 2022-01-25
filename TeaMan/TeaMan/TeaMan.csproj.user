@@ -25,6 +25,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\CalendarControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\MyTasksControl.xaml">
       <SubType>Designer</SubType>
     </Page>

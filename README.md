@@ -1,3 +1,4 @@
+![image](https://img.shields.io/github/workflow/status/kkonczak/TeaMan/.NET) ![image](https://img.shields.io/github/languages/top/kkonczak/TeaMan) ![image](https://img.shields.io/github/issues/kkonczak/TeaMan) ![image](https://img.shields.io/github/issues-closed/kkonczak/TeaMan) ![image](https://img.shields.io/github/license/kkonczak/TeaMan) ![image](https://img.shields.io/github/v/tag/kkonczak/TeaMan)
 # TeaMan
 Simple App to tasks and time management. It works local on PC or laptops with installed .Net Core. It use WPF framework, so on Linux you must use Wine.
 
@@ -11,7 +12,7 @@ Simple App to tasks and time management. It works local on PC or laptops with in
 ## Features
 * Create calendars and tasks
 * Create new task statuses and task types and assign it to tasks
-* Show tasks in many views
+* Show tasks in many views (task view, calendar view etc.)
 
 ## Project goals
 * Use advanced features of WPF Framework (custom controls, custom theming of miscellaneous controls, value converters etc.)
